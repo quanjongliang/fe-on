@@ -3,14 +3,15 @@
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link> |
     <router-link to="/login">Login</router-link> |
-    <router-link to="/chat">Chat</router-link>
+    <router-link to="/chat">Chat</router-link> |
+    <router-link to="/register">Register</router-link>
   </div>
   <router-view />
 </template>
 
 <style lang="scss">
 #app {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

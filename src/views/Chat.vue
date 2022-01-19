@@ -28,6 +28,7 @@ export default defineComponent({
     const sendMessage = () => {
       // information.message.push(information.text);
       socket.emit("msgToServer", information.text);
+      information.text =''
     };
 
     const receiveMessage = (msg: string) => {

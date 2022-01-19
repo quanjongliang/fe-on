@@ -11,7 +11,11 @@
             <div class="login-form__input-icon">
               <v-icon name="fa-user-alt" />
             </div>
-            <input type="text" placeholder="Placeholder" />
+            <input
+              type="text"
+              placeholder="Placeholder"
+              v-model="auth.username"
+            />
           </div>
           <p>Password</p>
           <div class="login-form__input">
@@ -21,6 +25,8 @@
             <input
               type="password"
               placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"
+              v-model="auth.password"
+              @keyup="loginSubmit"
             />
           </div>
         </div>
@@ -28,13 +34,19 @@
           <a href="">Forgot password</a>
         </div>
 
-        <div class="login-button">
-          <button>Login</button>
-        </div>
+        <div class="login-with">
+          <div class="login-with-button">
+            <button @click="submitLogin">Log In</button>
+          </div>
 
-        <div class="login-social">
-          <v-icon name="io-earth-sharp" />
-          <p>Login with social account</p>
+          <div class="login-with-social">
+            <div class="login-social__icon">
+              <v-icon name="io-earth-sharp" />
+            </div>
+            <div class="login-social__text">
+              <p>Login with social account</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -52,12 +64,36 @@
 <script lang="ts">
 import { PLACEHOLDER } from "@/core";
 import { defineComponent } from "@vue/runtime-core";
-
+import { reactive } from "vue";
+import axios from "axios";
 export default defineComponent({
   name: "Login",
   setup() {
+    const auth = reactive({
+      username: "",
+      password: "",
+    });
+    const submitLogin = async () => {
+      console.log(auth.username);
+      console.log(auth.password);
+      const res = await axios.post("http://localhost:4444/auth/login", {
+        username: auth.username,
+        password: auth.password,
+      });
+      console.log(res);
+    };
+
+    const loginSubmit = (e: KeyboardEvent) => {
+      console.log(e.key);
+      if (e.key === "Enter") {
+        submitLogin();
+      }
+    };
+
     return {
-      PLACEHOLDER,
+      auth,
+      loginSubmit,
+      submitLogin,
     };
   },
 });
@@ -93,11 +129,12 @@ export default defineComponent({
     align-items: center;
     height: 100vh;
     .login {
-      margin-top: 20%;
+      height: 15%;
       &-form {
         width: 300px;
         > p {
           text-align: start;
+          font-weight: 500;
         }
         &__input {
           position: relative;
@@ -110,16 +147,36 @@ export default defineComponent({
           }
           > input {
             width: 400px;
+            padding: 5px 20px 5px 40px;
             height: 30px;
             border-radius: 15px;
-            padding: 5px 20px 5px 40px;
           }
         }
       }
       &-forgot {
         padding: 20px;
         > a {
+          font-weight: 600;
+          color: var(--gray);
           text-decoration: none;
+        }
+      }
+      &-with {
+        margin-top: 20%;
+        &-button {
+          > button {
+            border-radius: 15px;
+            background-color: var(--gray);
+            border: none;
+            @include login_create;
+            height: 40px;
+            width: 460px;
+          }
+        }
+        &-social {
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
       }
     }
