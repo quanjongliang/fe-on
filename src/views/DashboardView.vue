@@ -62,10 +62,13 @@
 <script lang="ts">
 import { OptionAble } from "@/interfaces";
 import { defineComponent } from "@vue/runtime-core";
-import { reactive } from "vue";
+import { computed, reactive } from "vue";
+import { useRoute } from "vue-router";
 
 export default defineComponent({
   setup() {
+    const route = useRoute();
+
     const active = reactive<OptionAble>({
       home: true,
       bag: false,
@@ -76,6 +79,15 @@ export default defineComponent({
         active[key] = key === input ? true : false;
       });
     };
+    const path = computed(() => route.path);
+    console.log(path.value);
+    if (path.value.includes("bag")) {
+      setActive("bag");
+    }
+    if (path.value.includes("setting")) {
+      setActive("setting");
+    }
+
     return { active, setActive };
   },
 });
@@ -105,6 +117,7 @@ a:hover {
     padding: 30px 5px 30px 5px;
     width: 90px;
     background-color: var(--side-bar);
+    box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.25);
     .container {
       height: 100%;
       @include space_column;
@@ -130,8 +143,8 @@ a:hover {
         }
         .active {
           padding: 20px;
-          background-color: gray;
-          border-radius: 10px;
+          background-color: var(--active-button);
+          border-radius: 13px;
         }
       }
 
@@ -139,6 +152,11 @@ a:hover {
         &-top {
           display: flex;
           justify-content: center;
+        }
+        &-bot {
+          > img {
+            margin-left: -3px;
+          }
         }
       }
     }
