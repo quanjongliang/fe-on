@@ -43,6 +43,29 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Register.vue"),
   },
+  {
+    path: "/dashboard",
+    name: "DashboardView",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/DashboardView.vue"),
+    children: [
+      {
+        path: "/dashboard/home",
+        component: () => import("../components/dashboard/HomeDashboard.vue"),
+      },
+      {
+        path: "/dashboard/bag",
+        component: () => import("../components/dashboard/BagDashboard.vue"),
+      },
+      {
+        path: "/dashboard/setting",
+        component: () => import("../components/dashboard/SettingDashboard.vue"),
+      },
+    ],
+  },
 ];
 
 const router = createRouter({
