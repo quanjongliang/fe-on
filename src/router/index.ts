@@ -53,7 +53,7 @@ const routes: Array<RouteRecordRaw> = [
       import(/* webpackChunkName: "about" */ "../views/DashboardView.vue"),
     children: [
       {
-        path: "/dashboard/home",
+        path: "/dashboard/",
         component: () => import("../components/dashboard/HomeDashboard.vue"),
       },
       {

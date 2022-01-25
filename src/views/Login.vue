@@ -100,8 +100,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import url("../assets/style.scss");
-
 @mixin login_create {
   color: var(--white);
   font-weight: 600;

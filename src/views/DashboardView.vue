@@ -17,7 +17,7 @@
             </div>
           </div>
           <div class="button-group">
-            <router-link to="/dashboard/home">
+            <router-link to="/dashboard/">
               <div
                 class="button-group-home"
                 :class="active.home && 'active'"
@@ -94,8 +94,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import url("../assets/style.scss");
-
 @mixin space_column {
   display: flex;
   flex-direction: column;
@@ -128,6 +126,7 @@ a:hover {
           @include space_column;
           height: 50%;
           a {
+            width: 90px;
             display: flex;
             justify-content: center;
           }
@@ -158,6 +157,9 @@ a:hover {
             margin-left: -3px;
           }
         }
+      }
+      .logout {
+        cursor: pointer;
       }
     }
   }
